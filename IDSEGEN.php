@@ -39,7 +39,26 @@
         $datos=mysql_query($consulta);
         $cadena ="";
         while($fila = mysql_fetch_array($datos)){
-            $cadena .='<tr><td class="t_style5" style="width:33px;"><span class="style4">'.$fila['tipo'].'</span></td><td class="t_style5" style="width:85px;"><span class="style4">'.$fila['nss'].'</span></td><td class="t_style5" style="width:235px;"><span class="style4">'.$fila['nom_ase'].'</span></td><td class="t_style5" style="width:61px;"><p class="style2" style="text-align: left;">$&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">'.$fila['sal_base'].'</span></p></td><td class="t_style5" style="width:33px;"><span class="style4">'.$fila['ext'].'</span></td><tdclass="t_style5" style="width:30px;"><span class="style4">'.$fila['umf'].'</span></td><td class="t_style5" style="width:36px;"><span class="style4">'.$fila['tipo_umf'].'</span></td><td class="t_style5" style="width:74px;"><span class="style4">'.$fila['fech'].'</span></td><td class="t_style5" style="width:34px;"><span class="style4">'.$fila['tipo_fec'].'</span></td><tdclass="t_style5" style="width:65px;"><span class="style4">'.$fila['c_baja'].'</span></td></tr>';
+            $cadena .='<tr><td class="t_style5" style="width:33px;">
+            <span class="style4">'.$fila['tipo'].'</span></td>
+            <td class="t_style5" style="width:85px;">
+            <span class="style4">'.$fila['nss'].'</span></td>
+            <td class="t_style5" style="width:235px;">
+            <span class="style4">'.$fila['nom_ase'].'</span></td>
+            <td class="t_style5" style="width:61px;">
+            <p class="style2" style="text-align: left;">$&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">'.$fila['sal_base'].'</span></p></td>
+            <td class="t_style5" style="width:33px;">
+            <span class="style4">'.$fila['ext'].'</span></td>
+            <td class="t_style5" style="width:30px;">
+            <span class="style4">'.$fila['umf'].'</span></td>
+            <td class="t_style5" style="width:36px;">
+            <span class="style4">'.$fila['tipo_umf'].'</span></td>
+            <td class="t_style5" style="width:74px;">
+            <span class="style4">'.$fila['fech'].'</span></td>
+            <td class="t_style5" style="width:34px;">
+            <span class="style4">'.$fila['tipo_fec'].'</span></td>
+            <td class="t_style5" style="width:65px;">
+            <span class="style4">'.$fila['c_baja'].'</span></td></tr>';
         }
         require_once('/opt/lampp/htdocs/mpdf/app/reports/mio/pdf/mpdf.php');
         $mpdf = new mPDF('c','A4');
