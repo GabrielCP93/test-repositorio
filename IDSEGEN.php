@@ -20,6 +20,7 @@
         variable18:Rech. Modif.
         variable19:Rech. Reing.
         variable20:Rech. Total
+        variable21:Sello Digital
     */
     if(mysql_connect("localhost","root","")){
         $valor = TRUE;}
@@ -38,7 +39,7 @@
         $html = ('<html>
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <link rel="stylesheet" href="stylesheet.css" />
+                <link rel="stylesheet" href="css/stylesheet.css" />
                 <title>Reporte</title>
             </head>
         

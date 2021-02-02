@@ -35,7 +35,7 @@
         $mpdf = new mPDF('c','A4');
         $html = ('<html><head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <link rel="stylesheet" href="stylesheet.css" />
+            <link rel="stylesheet" href="css/stylesheet.css" />
             <title>Reporte</title>
         </head>
         <body>
@@ -131,4 +131,3 @@
         $mpdf ->writeHTML($html);
         $mpdf ->Output('reporte.pdf','I');
     }
-   
