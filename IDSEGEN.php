@@ -34,6 +34,13 @@
     function formato($status,$variable1,$variable2,$variable3,$variable4,$variable5,$variable6,$variable7,$variable8,$variable9,
     $variable10,$variable11,$variable12,$variable13,$variable14,$variable15,$variable16,$variable17,$variable18,$variable19,$variable20){
         mysql_connect("localhost","root","");
+        $consulta="SELECT*FROM rel_Mov";
+        mysql_select_db("test");
+        $datos=mysql_query($consulta);
+        $cadena ="";
+        while($fila = mysql_fetch_array($datos)){
+            $cadena .='<tr><td class="t_style5" style="width:33px;"><span class="style4">'.$fila['tipo'].'</span></td><td class="t_style5" style="width:85px;"><span class="style4">'.$fila['nss'].'</span></td><td class="t_style5" style="width:235px;"><span class="style4">'.$fila['nom_ase'].'</span></td><td class="t_style5" style="width:61px;"><p class="style2" style="text-align: left;">$&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">'.$fila['sal_base'].'</span></p></td><td class="t_style5" style="width:33px;"><span class="style4">'.$fila['ext'].'</span></td><tdclass="t_style5" style="width:30px;"><span class="style4">'.$fila['umf'].'</span></td><td class="t_style5" style="width:36px;"><span class="style4">'.$fila['tipo_umf'].'</span></td><td class="t_style5" style="width:74px;"><span class="style4">'.$fila['fech'].'</span></td><td class="t_style5" style="width:34px;"><span class="style4">'.$fila['tipo_fec'].'</span></td><tdclass="t_style5" style="width:65px;"><span class="style4">'.$fila['c_baja'].'</span></td></tr>';
+        }
         require_once('/opt/lampp/htdocs/mpdf/app/reports/mio/pdf/mpdf.php');
         $mpdf = new mPDF('c','A4');
         $html = ('<html>
@@ -223,20 +230,7 @@
                         <td class="t_style6" style="width:34px;"><span class="style3">Tipo</span></td>
                         <td class="t_style6" style="width:65px;"><span class="style3">C.Baja</span></td>
                     </tr>
-                    <tr>
-                        <td class="t_style5" style="width:33px;"><span class="style4">8</span></td>
-                        <td class="t_style5" style="width:85px;"><span class="style4">01048505299</span></td>
-                        <td class="t_style5" style="width:235px;"><span class="style4">BALTAZAR TORRES BEATRIZ MERCEDES</span></td>
-                        <td class="t_style5" style="width:61px;">
-                            <p class="style2" style="text-align: left;">$&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">145.10</span></p>
-                        </td>
-                        <td class="t_style5" style="width:33px;"><span class="style4">0</span></td>
-                        <td class="t_style5" style="width:30px;"><span class="style4">000</span></td>
-                        <td class="t_style5" style="width:36px;"><span class="style4">0</span></td>
-                        <td class="t_style5" style="width:74px;"><span class="style4">18/01/2021</span></td>
-                        <td class="t_style5" style="width:34px;"><span class="style4">1</span></td>
-                        <td class="t_style5" style="width:65px;"><span class="style4">0</span></td>
-                    </tr>
+                    '.$cadena.'
                 </table>
                 <p><span class="style2">Este documento es una representación impresa de los movimientos afiliatorios que fueron transmitidos, mismo que es extraído de la notaría.</span></p>
                 <footer>
