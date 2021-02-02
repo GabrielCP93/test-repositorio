@@ -456,6 +456,15 @@
     border: 1px solid rgba(178, 178, 178, 1.00);
 }
 
+.t_style6 {
+    background-color: rgba(242, 242, 242, 1.00);
+    margin-left: 9.11pt;
+    margin-right: 9.11pt;
+    text-align: center;
+    border: 1px solid black;
+    border-bottom: none;
+}
+
 footer {
     position: absolute;
     bottom: 50;
