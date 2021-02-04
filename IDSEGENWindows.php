@@ -23,43 +23,40 @@
         variable21:Sello Digital
     */
     if(mysql_connect("localhost","root","")){
-        $valor = TRUE;}
+        $valor = TRUE;
+        $sql = "SELECT * FROM imssMovimientos WHERE archivo = ANY(SELECT archivo FROM imssMovimientosDocumentos WHERE url like '%_1.pdf') AND idRelLab = '55523'";
+        mysql_connect("localhost","root","");
+        mysql_select_db("enomina");
+        $rsp = mysql_query($sql);
+        $cadena="";
+        while($fila = mysql_fetch_array($rsp)){
+            $rSocial = $fila['razonSocial'];
+            $regPatr = $fila['registroPatronal'];
+            $folio = $fila['folio'];
+            $lote = $fila['lote'];
+            $rfc =$fila['rfc'];
+            $feLote = $fila['fechaLote'];
+            $seCerti = $fila['serialCertificado'];
+            $hueDigi = $fila['huellaDigital'];
+            $seDigi = $fila['selloDigital'];
+            $idMov = $fila['idMovimiento'];
+            $idRelLab = $fila['idRelLab'];
+            $tipoMov = $fila['tipoMovimiento'];
+
+            $cadena .='<tr><td>'.$rSocial.'</td><td>'.$regPatr.'</td><td>'.$folio.'</td><td>'.$lote.'</td><td>'.$rfc.'</td><td>'.$feLote.'</td></tr>';
+        }
+        formato(TRUE,$rSocial,$regPatr,$folio,$lote,$rfc,$feLote,$seCerti,$hueDigi,"0","0","0","0","0","0","0","0","0","0","0","0",$cadena,$seDigi);
+
+    }
     else{
         $valor = FALSE;}
     
         
-    formato($valor,"MAQUINITAS CONSULTORES SA DE CV"," Y6077636105","8700907963241087340","286727855","SCO190708939","2021-01-20 16:32","00000100000209161833",
-    "7d9502354c5b93ceeecaada3dbd8566f40ffa0a5","0","0","0","0","0","0","0","0","0","0","0","0");
+    /*formato($valor,"MAQUINITAS CONSULTORES SA DE CV"," Y6077636105","8700907963241087340","286727855","SCO190708939","2021-01-20 16:32","00000100000209161833",
+    "7d9502354c5b93ceeecaada3dbd8566f40ffa0a5","0","0","0","0","0","0","0","0","0","0","0","0");*/
 
     function formato($status,$variable1,$variable2,$variable3,$variable4,$variable5,$variable6,$variable7,$variable8,$variable9,
-    $variable10,$variable11,$variable12,$variable13,$variable14,$variable15,$variable16,$variable17,$variable18,$variable19,$variable20){
-        mysql_connect("localhost","root","");
-        $consulta="SELECT*FROM rel_Mov";
-        mysql_select_db("test");
-        $datos=mysql_query($consulta);
-        $cadena ="";
-        while($fila = mysql_fetch_array($datos)){
-            $cadena .='<tr><td class="t_style5" style="width:33px;">
-            <span class="style4">'.$fila['tipo'].'</span></td>
-            <td class="t_style5" style="width:85px;">
-            <span class="style4">'.$fila['nss'].'</span></td>
-            <td class="t_style5" style="width:235px;">
-            <span class="style4">'.$fila['nom_ase'].'</span></td>
-            <td class="t_style5" style="width:61px;">
-            <p class="style2" style="text-align: left;">$&nbsp;&nbsp;&nbsp;&nbsp;<span class="style4">'.$fila['sal_base'].'</span></p></td>
-            <td class="t_style5" style="width:33px;">
-            <span class="style4">'.$fila['ext'].'</span></td>
-            <td class="t_style5" style="width:30px;">
-            <span class="style4">'.$fila['umf'].'</span></td>
-            <td class="t_style5" style="width:36px;">
-            <span class="style4">'.$fila['tipo_umf'].'</span></td>
-            <td class="t_style5" style="width:74px;">
-            <span class="style4">'.$fila['fech'].'</span></td>
-            <td class="t_style5" style="width:34px;">
-            <span class="style4">'.$fila['tipo_fec'].'</span></td>
-            <td class="t_style5" style="width:65px;">
-            <span class="style4">'.$fila['c_baja'].'</span></td></tr>';
-        }
+    $variable10,$variable11,$variable12,$variable13,$variable14,$variable15,$variable16,$variable17,$variable18,$variable19,$variable20,$cadena,$variable21){
         require_once('C:\xampp\htdocs\GeneradorPdf\test-repositorio\pdf\mpdf.php');
         $mpdf = new mPDF('c','A4');
         $html = ('<html>
@@ -235,6 +232,7 @@
                         </td>
                     </tr>
                 </table>
+                <br />
                 <table>
                     <tr><td class="t_style3" colspan="10" style="text-align: center; width: 100%;"><span>Relación de movimientos operados</span></td></tr>
                     <tr style="width: 100%;">
@@ -257,7 +255,7 @@
                     <p><span class="style2">'.$variable21.'</span></p>
                     <br />
                     <img class="m_style2" src="img/piedp.png"/>
-                    <p style="text-align: right; margin: 0px 55px 0px 0px;">Página # de #</p>
+                    <p style="text-align: right; margin: 0px 55px 0px 0px;">Página 1 de 1</p>
                 </footer>
             </body>
             </html>');

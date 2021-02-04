@@ -1,4 +1,4 @@
-<?
+<?php
 #test de datos para php
     /*Lista de Variables:
         variable1:Razón Social
@@ -31,7 +31,7 @@
         while($fila = mysql_fetch_array($datos)){
             $cadena .='<tr><td>'.$fila['atrib1'].'</td><td>'.$fila['atrib2'].'</td><td>'.$fila['atrib3'].'</td><td>'.$fila['atrib4'].'</td><td>'.$fila['atrib5'].'</td><td>'.$fila['atrib6'].'</td></tr>';
         }
-        require_once('/opt/lampp/htdocs/mpdf/app/reports/mio/pdf/mpdf.php');
+        require_once('C:\xampp\htdocs\GeneradorPdf\test-repositorio\pdf\mpdf.php');
         $mpdf = new mPDF('c','A4');
         $html = ('<html><head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

@@ -11,26 +11,31 @@
         variable8:Huella digital
         variable9:Sello Digital
     */
-    if(mysql_connect("localhost","root","")){
+    if(mysql_connect("localhost","root","","enomina")){
         $valor = TRUE;
+        $sql = "SELECT * FROM imssMovimientos WHERE archivo = ANY(SELECT archivo FROM imssMovimientosDocumentos WHERE url like '%_1.pdf') AND idRelLab = '55523'";
+        mysql_connect("localhost","root","");
+        mysql_select_db("enomina");
+        $rsp = mysql_query($sql);
+        $cadena="";
+        while($fila = mysql_fetch_array($rsp)){
+            $rSocial = $fila['razonSocial'];
+            $regPatr = $fila['registroPatronal'];
+            $folio = $fila['folio'];
+            $lote = $fila['lote'];
+            $rfc =$fila['rfc'];
+            $feLote = $fila['fechaLote'];
+            $seCerti = $fila['serialCertificado'];
+            $hueDigi = $fila['huellaDigital'];
+            $seDigi = $fila['selloDigital'];
+            $cadena .='<tr><td>'.$rSocial.'</td><td>'.$regPatr.'</td><td>'.$folio.'</td><td>'.$lote.'</td><td>'.$rfc.'</td><td>'.$feLote.'</td></tr>';
+        }
+        formato(TRUE,$rSocial,$regPatr,$folio,$lote,$rfc,$feLote,$seCerti,$hueDigi,$seDigi,$cadena);
     }
     else{
         $valor = FALSE;
     }
-    if($valor){
-        formato($valor,"MAQUINITAS CONSULTORES SA DE CV"," Y6077636105","8700907963241087340","286727855","SCO190708939","2021-01-20 16:32","00000100000209161833",
-    "7d9502354c5b93ceeecaada3dbd8566f40ffa0a5","58671ACA4841710D5B10420C22E2F8289A5D4D6CEC059E7749E5B747372DE11FE6F0BCFE6D3C235BCBF7C0E2CD2BE97B52E69E03F1247
-    E39186C129069373A32 | 596532617");
-    }
-    function formato($status,$variable1,$variable2,$variable3,$variable4,$variable5,$variable6,$variable7,$variable8,$variable9){
-        mysql_connect("localhost","root","");
-        $consulta="SELECT*FROM test";
-        mysql_select_db("enomina");
-        $datos=mysql_query($consulta);
-        $cadena ="";
-        while($fila = mysql_fetch_array($datos)){
-            $cadena .='<tr><td>'.$fila['atrib1'].'</td><td>'.$fila['atrib2'].'</td><td>'.$fila['atrib3'].'</td><td>'.$fila['atrib4'].'</td><td>'.$fila['atrib5'].'</td><td>'.$fila['atrib6'].'</td></tr>';
-        }
+    function formato($status,$variable1,$variable2,$variable3,$variable4,$variable5,$variable6,$variable7,$variable8,$variable9,$cadena){
         require_once('C:\xampp\htdocs\GeneradorPdf\test-repositorio\pdf\mpdf.php');
         $mpdf = new mPDF('c','A4');
         $html = ('<html><head>
@@ -52,7 +57,7 @@
             <p class="p_style3"><span class="style2">En términos del Artículo 6 del Reglamento de la Ley del Seguro Social
                         en Materia de Afiliación, Clasificación de Empresas, Recaudación y Fiscalización, el Instituto Mexicano del Seguro Social extiende el
                         presente Acuse de recibo electrónico del Patrón o Sujeto Obligado con Nombre o Razón Social '.$variable1.'
-                        con Registro Patronal'.$variable2.'.</span></p>
+                        con Registro Patronal '.$variable2.'.</span></p>
             <table cellpadding="1" cellspacing="5" style="width: 100%; margin-bottom: 0;">
                 <tr>
                     <td colspan="3" class="t_style0"><span class="style3">Información General</span></td>
@@ -91,30 +96,6 @@
             </table>
             <table cellpadding="5" style="width: 100%; margin-top: 10; margin-bottom: 0;">
                 '.$cadena.'
-                <!--<tr>
-                    <td><span class="style2">Y607763610501048505299BALTAZAR</span></td>
-                    <td><span class="style2">TORRES</span></td>
-                    <td><span class="style2">BEATRIZ MERCEDES</span></td>
-                    <td><span class="style2">01481000000010018012021000</span></td>
-                    <td><span class="style2">0806400</span></td>
-                    <td cellpadding="5"><span class="style2">9</span></td>
-                </tr>
-                <tr>
-                    <td><span class="style2">Y607763610514048323407JIMENEZ</span></td>
-                    <td><span class="style2">LICEA</span></td>
-                    <td><span class="style2">JOSE PUEBLITO</span></td>
-                    <td><span class="style2">01481000000010018012021000</span></td>
-                    <td><span class="style2">0806400</span></td>
-                    <td><span class="style2">9</span></td>
-                </tr>
-                <tr>
-                    <td><span class="style2">***********</span></td>
-                    <td><span class="style2">000002(SUMA)</span></td>
-                    <td><span class="style2"> </span></td>
-                    <td><span class="style2">06400(CC)</span></td>
-                    <td><span class="style2"> </span></td>
-                    <td><span class="style2">9</span></td>
-                </tr>-->
             </table>
             <p><span class="style2">Este documento es una representación impresa de los movimientos afiliatorios que fueron transmitidos, mismo que es extraído de la notaría.</span></p>
             <footer>
@@ -122,7 +103,7 @@
                 <p><span class="style2">'.$variable9.'</span></p>
                 <br />
                 <img class="m_style2" src="img/piedp.png"/>
-                <p style="text-align: right; margin: 0px 55px 0px 0px;">Página # de #</p>
+                <p style="text-align: right; margin: 0px 55px 0px 0px;">Página 1 de 1</p>
             </footer>
         </body>
         </html>
